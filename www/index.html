@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>multitube</title>
+	<script src="vendor/jquery-2.1.1.min.js"></script>
+	<script src="vendor/jquery.websocket-0.0.1.js"></script>
+	<script>
+		var player;
+		function onYouTubeIframeAPIReady() {
+			console.log('onYouTubeIframeAPIReady');
+			player = new YT.Player('player', {
+				events: {
+					'onReady': onPlayerReady,
+					'onStateChange': onPlayerStateChange
+				}
+			});
+		}
+
+		function onPlayerReady(event) {
+			console.log('onPlayerReady');
+			event.target.playVideo();
+		}
+
+		function onPlayerStateChange(event) {
+			console.log('onPlayerStateChange');
+			if (event.data == YT.PlayerState.PLAYING && !done) {
+				setTimeout(stopVideo, 6000);
+				done = true;
+			}
+		}
+	</script>
+</head>
+<body>
+<div style="margin-right:auto;border:1px solid #000;padding:20px;">
+	<iframe id="player" type="text/html" width="640" height="390"
+			src="http://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1&origin=http://example.com"
+			frameborder="0"></iframe>
+</div>
+<script language="JavaScript">
+	$(function () {
+
+		/*
+		 var ws = new WebSocket("ws://localhost:8080/echo");
+		 ws.onopen = function () {
+		 // Web Socket is connected, send data using send()
+		 ws.send("Message to send");
+		 console.log("Message is sent...");
+		 };
+		 ws.onmessage = function (evt) {
+		 var received_msg = evt.data;
+		 console.log(received_msg, "Message is received...");
+		 };
+		 ws.onclose = function () {
+		 // websocket is closed.
+		 console.log("Connection is closed...");
+		 };
+		 */
+	});
+
+</script>
+<script src="https://www.youtube.com/iframe_api"></script>
+</body>
+</html>
